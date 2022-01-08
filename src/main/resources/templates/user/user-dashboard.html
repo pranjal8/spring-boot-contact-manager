@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="user/base:: layout( ~{ ::section } )">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"> </title>
+</head>
+<body>
+
+	<!--$ {object.property} -->
+	<!-- <h1>USER Name <span th:text="${user.name}"></span> </h1>
+		<h1>USER Email <span th:text="${user.email}"></span> </h1>
+		<h1> <a href="" th:href=" @{/logout} "> Logout </a> </h1>	 -->
+
+	<section>
+        
+		<div class="container">
+		   		<div class="card">
+		   				<div class="card-body my-5">
+		   						<div class="container text-center mb-2">
+									<img class="detail-profile-picture"							
+									  th:src="@{'/img/contact-logo.jpg'}"/>
+								</div>
+								
+								<h1 class="text-center text-secondary fst-italic fw-light mb-2"> Start Adding Your Contacts on Cloud..</h1>
+		   			
+		   						<a th:href="@{'add-contact'}"  class="d-grid gap-2 col-6 mx-auto btn btn-primary text-uppercase ">Add new contact</a>
+		   				</div>
+		   		</div>		   
+		</div>
+
+	</section>
+
+</body>
+</html>

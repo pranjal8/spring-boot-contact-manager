@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base:: layout( ~{ ::section } )">
+<head>
+<meta charset="UTF-8" />
+<title>This is about page</title>
+</head>
+<body>
+
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="my-card ">
+
+						<!--conditional rendering for alert message   -->
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}"
+							class="alert text-center" role="alert">
+							<p th:text="${session.message.content}"></p>
+							<th:block th:text="${#session.removeAttribute('message')}">
+							</th:block>
+							<!-- Shows msg only once then remove  -->
+						</div>
+
+						<img class="rounded mx-auto d-block"
+							style="width: 200px; height: 100px;" src=""
+							th:src="@{/img/register.svg}" alt="" />
+
+						<h1 class="text-center">Register Here</h1>
+						<!-- $ for variable
+						          Just put @ before the link so Thymeleaf identify the expression as a link. Specifically you are using a 
+						          context-relative URL. Context-relative URLs start with /
+						      -->
+						<form novalidate action="" th:action="@{/do-register}"
+							method="POST" th:object="${user}">
+							<!-- Name field -->
+							<div class="mb-2">
+								<label for="nameField" class="form-label">Name</label> <input
+									type="text" id="nameField" aria-describedby="nameHelp"
+									placeholder="Enter name" required="required"
+									class="form-control " name="name"
+									th:classappend="${ #fields.hasErrors('name') }  ?  'is-invalid' :  '  '  "
+									th:value="${user.name}">
+								<!-- class="is-invalid"  is must
+									            th:classappend=""  is used for conditional statement  -->
+								<!--server side form validation   -->
+								<div class="invalid-feedback"
+									th:each="e : ${ #fields.errors('name') }" th:text="${e}"></div>
+							</div>
+
+
+							<!-- Email field -->
+							<!--  th:value="${user.email}"    coming data from DB  . 
+								       name="email"  email is same as Entity class field  -->
+							<div class="mb-2">
+								<label for="emailField" class="form-label">Email</label> <input
+									type="email" class="form-control" id="emailField"
+									aria-describedby="emailHelp" name="email"
+									th:value="${user.email}" placeholder="Enter email"
+									required="required">
+							</div>
+
+							<!-- password field -->
+							<div class="mb-2">
+								<label for="passwordField" class="form-label">Password</label> <input
+									type="password" class="form-control" id="passwordField"
+									aria-describedby="passwordHelp" name="password"
+									th:value="${user.password}" placeholder="Enter password"
+									required="required">
+							</div>
+
+							<!-- about field -->
+							<div class="form-group mb-2">
+								<textarea name="about" th:text="${user.about}"
+									placeholder="Enter something about yourself" rows="4"
+									class="form-control ">
+										    </textarea>
+							</div>
+
+							<!-- Terms and condition -->
+							<div class="form-group form-check mb-2">
+								<input type="checkbox" name="agreement" class="form-check-input"
+									id="agreement" /> <label for="agreement">Agree to terms
+									and conditions</label>
+							</div>
+
+							<!-- buttons -->
+							<div class="container text-center">
+								<button type="submit" class="btn bg-primary text-white ">Submit
+								</button>
+								<button type="reset" class="btn btn-warning ">Reset</button>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

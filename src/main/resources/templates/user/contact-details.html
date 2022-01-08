@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+          th:replace="user/base:: layout( ~{ ::section } )">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"> </title>
+</head>
+<body>
+
+	<section>
+    	
+    	<div class="card ms-4 me-4"  th:if="${contact}"> <!-- if contact is not null only then showing this card div -->
+    		<div class="card-body"> 
+    			<h1 class="text-center">Your Contact Details </h1>
+    			
+    			<div class="container text-center">
+    					 <img th:src="@{'/img/'+${contact.img} }" class="detail-profile-picture mb-2" >
+    					 
+    					 <h3 class="mb-2"> <span  th:text="${contact.name}"> </span> (<span th:text="${contact.secondName}"></span>) </h3>
+    					   					 
+    					 <table class="table table-striped">
+							  <thead>
+								    <tr>
+									      <th scope="col">#ID</th>	
+									      <th  scope="col"> <span  th:text="${ 'SCM2021' + contact.cid}"></span></th>								      									   								   								         
+								    </tr>
+							  </thead>	
+							  
+							  <tbody>
+							  		<tr>
+							  			  <th scope="row">Phone</th>
+									      <td> <span  th:text="${contact.phone}"></span></td>	
+							  		</tr>							  
+							  		<tr>
+							  			  <th scope="row">Email</th>
+									      <td><span th:text="${contact.email}"></span></td>	
+							  		</tr>							  
+							  		<tr>
+							  			  <th scope="row">Work</th>
+									      <td><span  th:text="${contact.work}"></span></td>	
+							  		</tr>							  
+							  </tbody>	
+							  				  
+							</table>
+							
+							<div class="description mb-2">
+									<th:block th:utext="${contact.description}"></th:block>
+							</div>
+							
+							<div class="container">
+									<a href="#" th:onclick="|deleteContact( ${contact.cid} )|" class="btn btn-danger btn-sm">Delete</a>	
+								    <a th:href="@{'update/' +${contact.cid}}"class="btn btn-primary btn-sm">Update</a>			
+							</div>
+      			
+    			</div>
+    		</div>    		   		    		
+    	</div> 
+    	<!-- end if block  -->   
+    	 
+    	<!-- else block  --- outside card  -->
+    		<h1 class="text-center p-3 bg-danger text-white" th:unless="${contact}">You do not have permission to see this contact</h1>
+    		<!--end else block  -->
+	
+	</section>
+
+</body>
+</html>
